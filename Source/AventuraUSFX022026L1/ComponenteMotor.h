@@ -3,16 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "ComponentePlataforma.h"
 #include "ComponenteMotor.generated.h"
 
 UCLASS()
-class AVENTURAUSFX022026L1_API AComponenteMotor : public AActor
+class AVENTURAUSFX022026L1_API AComponenteMotor : public AComponentePlataforma
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
 	AComponenteMotor();
+	virtual void ComportamientoIndividual(float DeltaTime) override;
 
 };

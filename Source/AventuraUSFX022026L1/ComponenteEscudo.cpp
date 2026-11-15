@@ -1,18 +1,27 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "ComponenteEscudo.h"
 #include "Components/StaticMeshComponent.h"
-// Sets default values
+
 AComponenteEscudo::AComponenteEscudo()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	TipoComponente = ETipoComponente::ESCUDO;
 	UStaticMeshComponent* Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshEscudo"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere'"));
 	if (MeshAsset.Succeeded()) Mesh->SetStaticMesh(MeshAsset.Object);
 	RootComponent = Mesh;
-	SetActorScale3D(FVector(1.5f)); // Un poco más grande que la plataforma	 la esfera de colisión del escudo
-
+	SetActorScale3D(FVector(1.5f));
 }
 
+void AComponenteEscudo::ComportamientoIndividual(float DeltaTime)
+{
+	// Rotación individual
+	AddActorLocalRotation(FRotator(0, 50.0f * DeltaTime, 0));
+}
+
+void AComponenteEscudo::ComportamientoDeGrupo(TArray<AComponentePlataforma*> GrupoComponentes, float DeltaTime)
+{
+	// Si hay más de 2 escudos, se hacen más grandes (comportamiento de grupo)
+	if (GrupoComponentes.Num() > 2)
+	{
+		SetActorScale3D(FVector(2.0f));
+	}
+}

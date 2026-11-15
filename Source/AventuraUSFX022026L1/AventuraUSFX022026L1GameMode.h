@@ -8,6 +8,8 @@
 #include "FabricaObstaculosAereos.h"
 #include "FabricaObstaculosTerrestres.h"
 #include "Obstaculo.h"
+#include "TipoComponente.h"
+#include "ComponentePlataforma.h"
 #include "AventuraUSFX022026L1GameMode.generated.h"
 
 class APlataforma;
@@ -36,7 +38,8 @@ public:
 	
 	TArray<APlataforma*> aPlataformas;
 	AFabricaPlataformas* FabricaPlataformas;
-	AFachadaPlataformas* Fachada = nullptr;
+	TMap<int32, AComponentePlataforma*> MapaComponentes; // TMap con ID único como clave
+	int32 ContadorIDComponente = 0; // Para generar IDs único
 	
 	FTimerHandle TimerEliminarPlataforma;
 
